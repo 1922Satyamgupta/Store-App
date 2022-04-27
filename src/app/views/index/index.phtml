@@ -1,0 +1,9 @@
+
+<?php if(!$this->cookies->has('email')) {
+  $this->response->redirect('/login/index');
+}
+else{
+    $this->response->redirect('/blog/index');
+}
+
+?>

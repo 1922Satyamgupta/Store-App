@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		.container{
+			margin-top: 20px;
+			
+			width: 100%;
+			height: 100px;
+			background-color: black;
+			font-size: 40px;
+			text-align: center;
+		}
+		.container h1{
+			color: red;
+		}
+		.container span {
+			font-size: 30px;
+		}
+		
+	</style>
+</head>
+<body>
+	<div id="container">
+      <h1>MyCart</h1>
+	  <span><input type="text" name="" id="" placeholder="Product-sku, id"></span>
+	  <span><input type="button" value="Search"></span>
+	  <span><input type="button" value="Sort"></span>
+	</div>
+	<?php
+	echo"<h2>My Products</h2>";
+    #if ($users->count() > 0) {
+    ?>
+    <table class="table table-bordered table-hover">
+        <thead class="thead-light">
+        <tr>
+            <th>Produc-Sku</th>
+            <th>Product-Name</th>
+            <th>Product-price</th>
+            <th>Quantity</th>
+            <th colspan="2">Action</th>
+        </tr>
+        </thead>
+        <tfoot>
+        <tr>
+            <td colspan="6">Total Users: <?php echo $users->count(); ?></td>
+        </tr>
+        </tfoot>
+        <tbody>
+        <?php foreach ($users as $user) { ?>
+            <tr>
+                <td><?php echo $user->id; ?></td>
+                <td><?php echo $user->username; ?></td>
+                <td><?php echo $user->email; ?></td>
+                <td><?php echo $user->role; ?></td>
+                <?php if($user->status =='unapproved'){ ?>
+                <td><?php echo $this->tag->form("index/changestatus") ?><input type = "hidden"  name = 'approved' value="<?php echo $user->id ;?>"><input type="submit" name = "status" style="background-color:lightgreen;" value="approved"></form></td>
+                <?php } else {?>
+                  <td><?php echo $this->tag->form("index/changestatus") ?><input type = "hidden"  name = 'approved' value="<?php echo $user->id ;?>"><input type="submit" name = "status" style="background-color:red;" value="unapproved"></form></td>
+                  <?php } ?>
+                <td><?php echo $this->tag->linkTo(["edit/edit/$user->id", "edit"]);?></td>
+               <td><?php echo $this->tag->linkTo(["index/delete/$user->id", "delete"]);?></td>
+
+                
+               </tr>
+        </tbody>
+    </table>
+    <?php  echo $this->tag->linkTo(["blog/index", "Go to blog "]);?>
+</body>
+</html>
